@@ -4,35 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Whisper AI</title>
-    <style>
+    <title>Conversa </title>
+       <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            font-size: 16px;
-            background-color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
         }
 
-        #chatbox {
-            width: 100%;
-            max-width: 800px;
+        #chat-container {
+            width: 400px;
+            background-color: #fff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            overflow-y: auto;
-            max-height: 600px;
-            padding: 20px;
+            overflow: hidden;
+            position: relative;
         }
 
         .message {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
         }
 
         .avatar {
@@ -61,10 +59,6 @@
         .text {
             font-size: 16px;
             word-wrap: break-word;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: #f0f0f0;
-            max-width: 70%;
         }
 
         .options {
@@ -75,7 +69,7 @@
         }
 
         .option-box {
-            border: 1px solid #ccc;
+            background-color: #f0f0f0;
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
@@ -83,55 +77,42 @@
         }
 
         .option-box:hover {
-            background-color: #f0f0f0;
+            background-color: #ddd;
         }
 
-        .explanation {
-            font-style: italic;
-            font-size: 14px;
-            color: #777;
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #eee;
+            outline: none;
+            font-size: 16px;
+            background-color: #f7f7f7;
+        }
+
+        .send-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
             margin-top: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
         }
 
-        .fade-in {
-            animation: fadeIn ease 1s;
-            -webkit-animation: fadeIn ease 1s;
-            -moz-animation: fadeIn ease 1s;
-            -o-animation: fadeIn ease 1s;
-            -ms-animation: fadeIn ease 1s;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity:0; }
-            100% { opacity:1; }
-        }
-
-        @-moz-keyframes fadeIn {
-            0% { opacity:0; }
-            100% { opacity:1; }
-        }
-
-        @-webkit-keyframes fadeIn {
-            0% { opacity:0; }
-            100% { opacity:1; }
-        }
-
-        @-o-keyframes fadeIn {
-            0% { opacity:0; }
-            100% { opacity:1; }
-        }
-
-        @-ms-keyframes fadeIn {
-            0% { opacity:0; }
-            100% { opacity:1; }
+        .send-button:hover {
+            background-color: #0056b3;
         }
     </style>
+
 </head>
 <body>
     <div id="chatbox">
         <div class="message bot-message fade-in">
             <span class="avatar"></span>
-            <div class="text">🤖 Hello! I'm Whisper AI, your language learning companion. Let's explore languages together.</div>
+            <div class="text">🤖 Hello! I'm Conversa AI, your language learning companion. Let's explore languages together.</div>
         </div>
         <div class="message bot-message fade-in">
             <span class="avatar"></span>
@@ -219,6 +200,37 @@
                         correctAnswer: "Je t'aime",
                         explanation: "❤️ 'Je t'aime' is the expression for 'I love you' in French. It's used to convey affection."
                     },
+
+                    {
+    question: "🇫🇷 What's the French word for 'please'? 🙏",
+    options: ["Merci", "Bonjour", "S'il vous plaît", "Au revoir"],
+    correctAnswer: "S'il vous plaît",
+    explanation: "🙏 'S'il vous plaît' translates to 'please' in French. It's used to make a polite request."
+},
+{
+    question: "🇫🇷 How do you say 'How are you?' in French? 🤔",
+    options: ["Comment tu t'appelles?", "Quel est ton âge?", "Comment ça va?", "Où habites-tu?"],
+    correctAnswer: "Comment ça va?",
+    explanation: "🤔 'Comment ça va?' is the way to ask 'How are you?' in French when addressing someone casually."
+},
+{
+    question: "🇫🇷 Guess the French word for 'I don't understand'. ❓",
+    options: ["Je t'aime", "Je parle français", "Je ne comprends pas", "Excusez-moi"],
+    correctAnswer: "Je ne comprends pas",
+    explanation: "❓ 'Je ne comprends pas' means 'I don't understand' in French. It's a useful phrase when you're unsure."
+},
+{
+    question: "🇫🇷 How do you say 'My name is...' in French? 📝",
+    options: ["Je t'aime", "Comment ça va?", "Mon nom est...", "Où habites-tu?"],
+    correctAnswer: "Mon nom est...",
+    explanation: "📝 'Mon nom est...' is used to say 'My name is...' in French when introducing yourself."
+},
+{
+    question: "🇫🇷 Can you guess the French word for 'Excuse me'? 🙇‍♀️",
+    options: ["Non", "Oui", "Merci", "Excusez-moi"],
+    correctAnswer: "Excusez-moi",
+    explanation: "🙇‍♀️ 'Excusez-moi' is used to say 'Excuse me' or 'I'm sorry' in formal situations."
+},
                     // Add more questions and explanations as needed
                 ]
             },
