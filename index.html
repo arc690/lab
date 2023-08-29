@@ -16,37 +16,61 @@
             justify-content: center;
             min-height: 100vh;
         }
-
+        
         #chat-container {
             width: 400px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             position: relative;
+            max-height: 80vh;
+            animation: slide-in 0.5s ease-out;
         }
-
+        
+        @keyframes slide-in {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
         .message {
             display: flex;
             align-items: flex-start;
             padding: 16px;
             border-bottom: 1px solid #eee;
+            animation: fade-in 0.3s ease-out;
         }
-
+        
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
         .avatar {
             font-size: 24px;
             margin-right: 10px;
+            flex-shrink: 0;
         }
-
+        
         .bot-message .avatar {
             background-image: url('ai.png');
             background-size: cover;
-            width: 36px;
-            height: 36px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             margin-top: 4px;
         }
-
+        
         .user-message .avatar {
             background-image: url('user.png');
             background-size: cover;
@@ -55,19 +79,20 @@
             border-radius: 50%;
             margin-top: 4px;
         }
-
+        
         .text {
             font-size: 16px;
             word-wrap: break-word;
         }
-
+        
         .options {
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-top: 10px;
+            animation: fade-in 0.5s ease-out;
         }
-
+        
         .option-box {
             background-color: #f0f0f0;
             border-radius: 5px;
@@ -75,11 +100,11 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
+        
         .option-box:hover {
             background-color: #ddd;
         }
-
+        
         .chat-input {
             width: 100%;
             padding: 10px;
@@ -88,8 +113,10 @@
             outline: none;
             font-size: 16px;
             background-color: #f7f7f7;
+            border-radius: 0 0 10px 10px;
+            animation: fade-in 0.5s ease-out;
         }
-
+        
         .send-button {
             background-color: #007bff;
             color: #fff;
@@ -101,10 +128,11 @@
             font-size: 16px;
             transition: background-color 0.3s;
         }
-
+        
         .send-button:hover {
             background-color: #0056b3;
         }
+        
     </style>
 
 </head>
@@ -230,6 +258,36 @@
     options: ["Non", "Oui", "Merci", "Excusez-moi"],
     correctAnswer: "Excusez-moi",
     explanation: "🙇‍♀️ 'Excusez-moi' is used to say 'Excuse me' or 'I'm sorry' in formal situations."
+},
+{
+    question: "🇫🇷 What's the French word for 'water'? 💧",
+    options: ["Eau", "Feu", "Vent", "Terre"],
+    correctAnswer: "Eau",
+    explanation: "💧 'Eau' means 'water' in French. It's a basic and essential word."
+},
+{
+    question: "🇫🇷 How do you say 'good' in French? 👍",
+    options: ["Mauvais", "Grand", "Bon", "Petit"],
+    correctAnswer: "Bon",
+    explanation: "👍 'Bon' translates to 'good' in French. You can use it to express positive things."
+},
+{
+    question: "🇫🇷 Guess the French word for 'cat'. 🐱",
+    options: ["Chien", "Souris", "Oiseau", "Chat"],
+    correctAnswer: "Chat",
+    explanation: "🐱 'Chat' is the word for 'cat' in French. It's a common and adorable animal name."
+},
+{
+    question: "🇫🇷 How do you say 'I love you' in French? ❤️",
+    options: ["Je t'aime", "Bonjour", "Merci", "Excusez-moi"],
+    correctAnswer: "Je t'aime",
+    explanation: "❤️ 'Je t'aime' is the romantic phrase for 'I love you' in French. Express your feelings!"
+},
+{
+    question: "🇫🇷 Can you guess the French word for 'sun'? ☀️",
+    options: ["Lune", "Étoile", "Nuage", "Soleil"],
+    correctAnswer: "Soleil",
+    explanation: "☀️ 'Soleil' means 'sun' in French. It's the source of light and warmth in the sky."
 },
                     // Add more questions and explanations as needed
                 ]
@@ -394,9 +452,11 @@
 
         function showNextQuestion(questionData) {
             questionIndex++;
+            previousExplanation = ""; // Reset the previous explanation
             clearChatbox();
             showQuestion();
         }
+        
     </script>
 </body>
 </html>
