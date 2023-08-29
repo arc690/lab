@@ -57,27 +57,27 @@
         }
         
         .avatar {
-            font-size: 24px;
-            margin-right: 10px;
+            font-size: 28px;
+            margin-right: 12px;
             flex-shrink: 0;
         }
         
         .bot-message .avatar {
             background-image: url('ai.png');
             background-size: cover;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         
         .user-message .avatar {
             background-image: url('user.png');
             background-size: cover;
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            margin-top: 4px;
+            margin-top: 6px;
         }
         
         .text {
@@ -132,11 +132,58 @@
         .send-button:hover {
             background-color: #0056b3;
         }
+
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .dark-mode-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #000;
+            transition: color 0.3s;
+        }
+        
+        .dark-mode-button:hover {
+            color: #fff;
+        }
+        
         
     </style>
 
 </head>
 <body>
+
+   
+        <button id="dark-mode-toggle" class="dark-mode-button" onclick="toggleDarkMode()">🌙</button>
+        <!-- ... Rest of the chat container content ... -->
+   
+    <script>
+        
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        const chatContainer = document.getElementById("chat-container");
+        let isDarkMode = false;
+        
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                document.body.classList.add("dark-mode");
+                chatContainer.classList.add("dark-mode");
+                darkModeToggle.textContent = "☀️";
+            } else {
+                document.body.classList.remove("dark-mode");
+                chatContainer.classList.remove("dark-mode");
+                darkModeToggle.textContent = "🌙";
+            }
+        }
+        
+    </script>
     <div id="chatbox">
         <div class="message bot-message fade-in">
             <span class="avatar"></span>
@@ -289,6 +336,7 @@
     correctAnswer: "Soleil",
     explanation: "☀️ 'Soleil' means 'sun' in French. It's the source of light and warmth in the sky."
 },
+
                     // Add more questions and explanations as needed
                 ]
             },
