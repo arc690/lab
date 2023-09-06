@@ -61,6 +61,15 @@
             margin-right: 12px;
             flex-shrink: 0;
         }
+
+        .avatar1 {
+            background-image: url('ai-smile.png');
+            background-size: cover;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-top: 6px;
+        }
         
         .bot-message .avatar {
             background-image: url('ai.png');
@@ -175,6 +184,72 @@
     background-color: #0056b3;
 }
 
+/* Popup styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Add more styles as needed */
+/* Teaching Popup styles */
+.teaching-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Add more styles as needed */
+
+
         
     </style>
 
@@ -220,6 +295,93 @@
             </div>
         </div>
     </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button" id="close-button">&times;</span>
+            <span class="avatar1"></span>
+            <h2>What's New</h2>
+            <p>Conversa has some exciting updates:</p>
+            <ul>
+                <li>Addition of more French questions</li>
+                <li>New dark mode feature</li>
+                <li>Improved user interface</li>
+            </ul>
+            <p>Explore and enjoy the enhanced learning experience!</p>
+        </div>
+    </div>
+
+    <div id="teaching-popup" class="teaching-popup">
+        <div class="popup-content">
+            <span class="close-button" id="teaching-close-button">&times;</span>
+            <h2>French Lesson</h2>
+            <p>Let's learn something new:</p>
+            <p><strong>Topic:</strong> French Grammar</p>
+            <p><strong>Lesson:</strong> Verbs and Conjugation</p>
+            <p>In French, verbs play a crucial role. They are the action words that describe what someone or something is doing. Understanding verb conjugation is essential for constructing sentences correctly.</p>
+            <p>For example, the verb "parler" (to speak) is conjugated as follows:</p>
+            <ul>
+                <li>Je parle (I speak)</li>
+                <li>Tu parles (You speak)</li>
+                <li>Il/Elle parle (He/She speaks)</li>
+                <li>Nous parlons (We speak)</li>
+                <li>Vous parlez (You all speak)</li>
+                <li>Ils/Elles parlent (They speak)</li>
+            </ul>
+            <p>Practice verb conjugation to improve your French language skills!</p>
+        </div>
+    </div>
+    <script>
+        // JavaScript to show the teaching popup after every 4 questions
+// JavaScript to show the teaching popup after every 4 questions
+let questionCount = 0;
+
+function showTeachingPopup() {
+    const teachingPopup = document.getElementById("teaching-popup");
+    const teachingCloseButton = document.getElementById("teaching-close-button");
+
+    // Show the teaching popup
+    teachingPopup.style.display = "block";
+
+    // Close the teaching popup when the close button is clicked
+    teachingCloseButton.onclick = function () {
+        teachingPopup.style.display = "none";
+    };
+}
+
+// Function to handle user responses
+function handleUserResponse(response, questionData) {
+    // ... (your existing code)
+
+    // Increment the question count
+    questionCount++;
+
+    // Check if it's time to show the teaching popup (every 4 questions)
+    if (questionCount % 4 === 0) {
+        showTeachingPopup();
+    }
+}
+
+
+    </script>
+    <script>
+        // JavaScript to show the popup when the page loads
+window.onload = function () {
+    const popup = document.getElementById("popup");
+    const closeButton = document.getElementById("close-button");
+
+    // Show the popup
+    popup.style.display = "block";
+
+    // Close the popup when the close button is clicked
+    closeButton.onclick = function () {
+        popup.style.display = "none";
+    };
+};
+
+
+
+    </script>
 
     <script>
         const chatbox = document.getElementById("chatbox");
@@ -357,6 +519,37 @@
     correctAnswer: "Soleil",
     explanation: "☀️ 'Soleil' means 'sun' in French. It's the source of light and warmth in the sky."
 },
+
+{
+    question: "What is the French word for 'Apple'? 🍏",
+    options: ["Poire", "Banane", "Fraise", "Pomme"],
+    correctAnswer: "Pomme",
+    explanation: "Correct! 'Pomme' means Apple in French."
+},
+{
+    question: "How do you say 'Good night' in French? 🌙",
+    options: ["Bonne soirée", "Bon matin", "Bonsoir", "Au revoir"],
+    correctAnswer: "Bonsoir",
+    explanation: "Well done! 'Bonsoir' means Good night in French."
+},
+{
+    question: "What is the French word for 'Book'? 📚",
+    options: ["Journal", "Livre", "Stylo", "Téléphone"],
+    correctAnswer: "Livre",
+    explanation: "Excellent! 'Livre' means Book in French."
+},
+{
+    question: "How do you say 'Please' in French? 🙏",
+    options: ["Prière", "S'il vous plaît", "Excusez-moi", "Non"],
+    correctAnswer: "S'il vous plaît",
+    explanation: "Great job! 'S'il vous plaît' means Please in French."
+},
+{
+    question: "What is the French word for 'Friend'? 👫",
+    options: ["Frère", "Cousin", "Voisin", "Ami"],
+    correctAnswer: "Ami",
+    explanation: "You're doing well! 'Ami' means Friend in French."
+}
 
                     // Add more questions and explanations as needed
                 ]
