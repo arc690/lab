@@ -72,7 +72,7 @@
         }
         
         .bot-message .avatar {
-            background-image: url('ai.png');
+            background-image: url('ai-smile.png');
             background-size: cover;
             width: 60px;
             height: 60px;
@@ -248,6 +248,59 @@
 }
 
 /* Add more styles as needed */
+/* Hint Popup styles */
+.hint-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.hint-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hint-options {
+    margin-top: 20px;
+}
+
+/* Add more styles as needed */
+
+/* Style for the speak button */
+.speak-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    background-color: #202123;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    outline: none;
+}
 
 
         
@@ -259,8 +312,90 @@
    
         <button id="dark-mode-toggle" class="dark-mode-button" onclick="toggleDarkMode()">🌙</button>
         <!-- ... Rest of the chat container content ... -->
-   
+   <div id="hint-popup" class="hint-popup">
+    <div class="hint-content">
+        <span class="close-button" id="hint-close-button">&times;</span>
+        <h2>Need a Hint?</h2>
+        <p id="hint-message">I'm here to help! How can I assist you?</p>
+        <div class="hint-options">
+            <button id="hint-yes-button">Yes</button>
+            <button id="hint-no-button">No</button>
+        </div>
+    </div>
+</div>
+<!-- Add this button to your HTML -->
+<button id="speak-button" class="speak-button" title="Read Aloud">🎙️</button>
+
+
     <script>
+        // JavaScript to handle text-to-speech functionality
+const speakButton = document.getElementById("speak-button");
+
+// Initialize the SpeechSynthesis API
+const synth = window.speechSynthesis;
+
+speakButton.addEventListener("click", () => {
+    const chatbox = document.getElementById("chatbox");
+    let textToSpeak = "";
+
+    // Extract text from chat messages
+    const messages = chatbox.querySelectorAll(".text");
+    messages.forEach(message => {
+        textToSpeak += message.textContent + " ";
+    });
+
+    // Create a SpeechSynthesisUtterance object
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    
+    // Modify the voice to be female (if available)
+    const voices = synth.getVoices();
+    const femaleVoice = voices.find(voice => voice.name.includes("female"));
+    if (femaleVoice) {
+        utterance.voice = femaleVoice;
+    }
+
+    // Start speaking
+    synth.speak(utterance);
+});
+
+
+        // JavaScript to control the hint pop-up
+const hintPopup = document.getElementById("hint-popup");
+const hintCloseButton = document.getElementById("hint-close-button");
+const hintMessage = document.getElementById("hint-message");
+const hintYesButton = document.getElementById("hint-yes-button");
+const hintNoButton = document.getElementById("hint-no-button");
+
+// Function to show the hint pop-up
+function showHint() {
+    hintPopup.style.display = "block";
+}
+
+// Function to hide the hint pop-up
+function hideHint() {
+    hintPopup.style.display = "none";
+}
+
+// Open the hint pop-up when the chatbot offers assistance
+// You can trigger this based on user interactions or conditions in your code
+// For example, you can call showHint() when the chatbot suggests a hint
+
+// Close the hint pop-up when the close button is clicked
+hintCloseButton.onclick = hideHint;
+
+// Handle user responses to the hint
+hintYesButton.onclick = function () {
+    // Customize the hint message here
+    hintMessage.textContent = "Here's a hint: [Your hint text here]";
+    // You can provide more hints and explanations based on user interaction
+};
+
+hintNoButton.onclick = function () {
+    // Customize the response when the user declines the hint
+    hintMessage.textContent = "Alright! If you change your mind, feel free to ask for a hint anytime.";
+    // You can provide more options or responses based on user interaction
+};
+
         
         const darkModeToggle = document.getElementById("dark-mode-toggle");
         const chatContainer = document.getElementById("chat-container");
@@ -306,6 +441,8 @@
                 <li>Addition of more French questions</li>
                 <li>New dark mode feature</li>
                 <li>Improved user interface</li>
+                
+                <li>New Mic option</li>
             </ul>
             <p>Explore and enjoy the enhanced learning experience!</p>
         </div>
@@ -428,6 +565,12 @@ window.onload = function () {
                         correctAnswer: "Non",
                         explanation: "❌ 'Non' translates to 'No' in French. It's the opposite of 'Yes'."
                     },
+                    {
+                    question: "Let's Go!  Learning a new language can be an exciting journey. Let's learn  Bonjour - This means Hello in French. It's a common greeting used in the morning and throughout the day. Comment ça va ? - This is a common way to ask How are you? in French. You can respond with Ça va bien for I'm good or Ça va mal for I'm not good.Je m'appelle [Your Name] - My name is [Your Name]. If you want you can note it down!",
+                    options: ["Understood!",],
+                    correctAnswer: "Understood!",
+                    explanation: "Let's learn once again and be summarized! Bonjour - This means Hello in French. It's a common greeting used in the morning and throughout the day. Comment ça va ? - This is a common way to ask How are you? in French. You can respond with Ça va bien for I'm good or Ça va mal for I'm not good.Je m'appelle [Your Name] - My name is [Your Name]. If you want you can note it down!"
+                },
                     {
                         question: "🇫🇷 What's the French word for 'Thank you'? 🙌",
                         options: ["Bonjour", "Merci", "Oui", "Au revoir"],
